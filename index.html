@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klemens Chung | Portfolio</title>
+    <meta name="description" content="Personal portfolio of Klemens Chung, showcasing projects and experience.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="no-scroll">
+    <div id="splash-screen">
+        <div id="dotted-surface-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></div>
+        <div class="splash-content" style="position: relative; z-index: 1;">
+            <h1 class="splash-title">Don't Click!</h1>
+            <p class="splash-subtitle">Click to enter</p>
+        </div>
+    </div>
+    
+    <header class="navbar">
+        <a href="index.html" class="logo" style="text-decoration: none; color: inherit;">KC.</a>
+        
+        <button class="hamburger" aria-label="Toggle Menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <nav class="nav-menu">
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">Klemens<br>Chung.</h1>
+                <p class="hero-subtitle">IT Technician. Developer. Problem Solver.</p>
+                <a href="#projects" class="btn primary-btn">View Work</a>
+            </div>
+            <div class="hero-graphic">
+                <div class="globe-container" id="hero-globe">
+                    <span class="tagcloud"></span>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-grid">
+                <div class="about-card">
+                    <h3>Professional</h3>
+                    <p>I am a detail-oriented IT Technician with extensive experience in hardware diagnostics, systems assembly, and cross-platform troubleshooting. I excel at managing end-to-end technical projects—from network installations to complex WordPress migrations—within collaborative team environments. My core focus is on providing efficient, user-centric support and maintaining robust system integrity in fast-paced enterprise settings.</p>
+                </div>
+                <div class="about-card">
+                    <h3>Personal</h3>
+                    <p>When I'm not configuring servers or troubleshooting systems, I live an active and creative lifestyle. You will usually find me solving physical puzzles on the bouldering wall, smashing shuttlecocks on the badminton court, or out capturing moments through photography. Balancing technical work with these passions keeps me focused and energised.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects-section">
+            <h2 class="section-title">Selected Projects</h2>
+            <div class="projects-grid">
+                <article class="project-card">
+                    <div class="project-image" style="background-image: url('nickel-thumbnail.png');"></div>
+                    <div class="project-info">
+                        <h3>Nickel Consulting</h3>
+                        <p>Led a 5-person team to redesign and migrate a fully responsive WordPress site, improving load speeds and user engagement.</p>
+                        <a href="nickle-consulting.html" class="project-link">Learn More &rarr;</a>
+                    </div>
+                </article>
+                <article class="project-card">
+                    <div class="project-image" style="background-image: url('ai-thumbnail.png');"></div>
+                    <div class="project-info">
+                        <h3>AI-Powered Portfolio</h3>
+                        <p>Designed and developed this very website from scratch utilising advanced agentic AI and modern web standards.</p>
+                        <a href="agentic-portfolio.html" class="project-link">Learn More &rarr;</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <h2 class="section-title">Get in Touch</h2>
+            <p class="contact-desc">Interested in working together? Drop me a line.</p>
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn primary-btn">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="year"></span> Klemens Chung. All rights reserved.</p>
+    </footer>
+
+    <!-- Floating Theme Toggle -->
+    <button class="theme-btn" id="theme-toggle" aria-label="Toggle Theme">
+        <i data-lucide="moon"></i>
+    </button>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/TagCloud@2.2.0/dist/TagCloud.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

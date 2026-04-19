@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nickel Consulting Project | Klemens Chung</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .project-detail-section {
+            padding-top: 10rem;
+        }
+        .project-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        .project-meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            color: var(--text-secondary);
+        }
+        .project-meta div span {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .project-body h3 {
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        .project-body ul {
+            list-style-position: inside;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+        .project-body li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <a href="index.html" class="logo" style="text-decoration: none; color: inherit;">KC.</a>
+        
+        <button class="hamburger" aria-label="Toggle Menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <nav class="nav-menu">
+            <ul class="nav-links">
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#projects">Projects</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="project-detail-section">
+            <div class="project-header">
+                <h1 class="hero-title">Nickel Consulting</h1>
+                <p class="hero-subtitle" style="margin: 0 auto;">Website Redesign & WordPress Migration</p>
+            </div>
+            
+            <div class="project-meta">
+                <div><span>Role:</span> Team Lead</div>
+                <div><span>Timeline:</span> 03/2025 – 06/2025</div>
+                <div><span>Tech Stack:</span> WordPress, cPanel, CSS</div>
+            </div>
+
+            <div class="about-content project-body" style="text-align: left; max-width: 900px;">
+                <h3>Overview</h3>
+                <p>I led a 5-person team in a comprehensive redesign of the Bickel Consulting website. The core objective was to migrate their existing infrastructure to WordPress, resolving underlying UI issues and implementing full mobile responsiveness for a seamless modern web experience.</p>
+                
+                <h3>Leadership & Process</h3>
+                <p>To ensure a smooth delivery, I facilitated weekly sprints with the development team. I was responsible for translating business needs into technical solutions, which included presenting design prototypes directly to product owners to guarantee alignment before execution.</p>
+
+                <h3>Technical Execution</h3>
+                <ul>
+                    <li>Managed end-to-end WordPress configuration, integrating essential plugins and customising the theme.</li>
+                    <li>Developed custom CSS to ensure strict brand alignment across all digital touchpoints.</li>
+                    <li>Oversaw backend architecture and optimised performance utilising cPanel.</li>
+                    <li>Executed rigorous cross-browser testing to guarantee quality and consistency.</li>
+                    <li>Managed the complete end-to-end content migration process.</li>
+                </ul>
+
+                <h3>Outcomes</h3>
+                <p>The successful launch resulted in significantly improved load speeds and enhanced navigation, leading to a marked increase in user engagement. Furthermore, the new WordPress infrastructure empowered the client with the ability to manage content updates completely independently, reducing ongoing maintenance friction.</p>
+
+                <div style="text-align: center; margin-top: 3rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                    <a href="https://nickelconsulting.com.au" target="_blank" rel="noopener noreferrer" class="btn primary-btn" style="display: flex; align-items: center; gap: 0.5rem;">Visit Website <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
+                    <a href="index.html#projects" class="btn" style="background: var(--surface-color); border: 1px solid var(--text-secondary); color: var(--text-primary);">&larr; Back to Projects</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="year"></span> Klemens Chung. All rights reserved.</p>
+    </footer>
+
+    <!-- Floating Theme Toggle -->
+    <button class="theme-btn" id="theme-toggle" aria-label="Toggle Theme">
+        <i data-lucide="moon"></i>
+    </button>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="script.js"></script>
+</body>
+</html>
