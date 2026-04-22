@@ -155,57 +155,66 @@ if (document.querySelector('.tagcloud')) {
 // Set current year in footer
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// ── EmailJS config ───────────────────────────────────────────────────
-// Replace the three placeholder strings below with your real EmailJS values.
-// Sign up free at https://www.emailjs.com/ then:
-//   1. Add a Gmail service  →  copy the Service ID
-//   2. Create an email template  →  copy the Template ID
-//   3. Go to Account → API Keys  →  copy the Public Key
-const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
-const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+// ── Google Apps Script config ─────────────────────────────────────────────
+// Paste your deployed Apps Script URL below (see setup instructions).
+// Leave as-is until you have the URL — form will show a friendly error.
+const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL';
 
-emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-
-// Contact form — sends directly via EmailJS (no mail app, no page reload)
+// Contact form — sends directly via Gmail (Google Apps Script, no mail app)
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        const submitBtn  = contactForm.querySelector('button[type="submit"]');
+        const submitBtn    = contactForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
+
+        if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL') {
+            submitBtn.textContent = '⚠ Not configured yet';
+            submitBtn.style.background = '#f59e0b';
+            setTimeout(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.style.background = '';
+            }, 3000);
+            return;
+        }
 
         // Loading state
         submitBtn.textContent = 'Sending…';
         submitBtn.disabled = true;
 
-        const templateParams = {
+        const payload = {
             from_name:  document.getElementById('name').value.trim(),
             from_email: document.getElementById('email').value.trim(),
             message:    document.getElementById('message').value.trim(),
-            to_email:   'klemenschung@gmail.com',
         };
 
-        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
-            .then(() => {
-                // Success state
-                submitBtn.textContent = '✓ Message Sent!';
-                submitBtn.style.background = '#10b981';
-                contactForm.reset();
-
+        fetch(APPS_SCRIPT_URL, {
+            method:  'POST',
+            // Apps Script requires text/plain to avoid preflight CORS issues
+            headers: { 'Content-Type': 'text/plain' },
+            body:    JSON.stringify(payload),
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    submitBtn.textContent = '✓ Message Sent!';
+                    submitBtn.style.background = '#10b981';
+                    contactForm.reset();
+                } else {
+                    throw new Error(data.error || 'Unknown error');
+                }
                 setTimeout(() => {
                     submitBtn.textContent = originalText;
                     submitBtn.style.background = '';
                     submitBtn.disabled = false;
                 }, 3500);
             })
-            .catch((err) => {
-                console.error('EmailJS error:', err);
+            .catch(err => {
+                console.error('Send error:', err);
                 submitBtn.textContent = '✕ Failed — try again';
                 submitBtn.style.background = '#ef4444';
                 submitBtn.disabled = false;
-
                 setTimeout(() => {
                     submitBtn.textContent = originalText;
                     submitBtn.style.background = '';
