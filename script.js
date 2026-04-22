@@ -155,10 +155,10 @@ if (document.querySelector('.tagcloud')) {
 // Set current year in footer
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// ── Google Apps Script config ─────────────────────────────────────────────
+// ── Google Apps Script config ───────────────────────────────────────────────
 // Paste your deployed Apps Script URL below (see setup instructions).
 // Leave as-is until you have the URL — form will show a friendly error.
-const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyBDCkadWd8BfhevHnMysgIFcZ5fo1YoVaSssXWOMRiVvmVoJUw9XdzzL7GDHFxmQVW/exec';
 
 // Contact form — sends directly via Gmail (Google Apps Script, no mail app)
 const contactForm = document.getElementById('contactForm');
