@@ -155,34 +155,62 @@ if (document.querySelector('.tagcloud')) {
 // Set current year in footer
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Contact form — opens mailto: with pre-filled fields
+// ── EmailJS config ───────────────────────────────────────────────────
+// Replace the three placeholder strings below with your real EmailJS values.
+// Sign up free at https://www.emailjs.com/ then:
+//   1. Add a Gmail service  →  copy the Service ID
+//   2. Create an email template  →  copy the Template ID
+//   3. Go to Account → API Keys  →  copy the Public Key
+const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
+const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+
+emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+// Contact form — sends directly via EmailJS (no mail app, no page reload)
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        const name    = document.getElementById('name').value.trim();
-        const email   = document.getElementById('email').value.trim();
-        const message = document.getElementById('message').value.trim();
-
-        const subject = encodeURIComponent(`Portfolio Enquiry from ${name}`);
-        const body    = encodeURIComponent(
-            `Hi Klemens,\n\n${message}\n\n---\nFrom: ${name}\nReply to: ${email}`
-        );
-
-        window.location.href = `mailto:klemenschung@gmail.com?subject=${subject}&body=${body}`;
-
-        // Visual feedback after opening mail client
-        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const submitBtn  = contactForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Opening email client…';
+
+        // Loading state
+        submitBtn.textContent = 'Sending…';
         submitBtn.disabled = true;
 
-        setTimeout(() => {
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-            contactForm.reset();
-        }, 3000);
+        const templateParams = {
+            from_name:  document.getElementById('name').value.trim(),
+            from_email: document.getElementById('email').value.trim(),
+            message:    document.getElementById('message').value.trim(),
+            to_email:   'klemenschung@gmail.com',
+        };
+
+        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+            .then(() => {
+                // Success state
+                submitBtn.textContent = '✓ Message Sent!';
+                submitBtn.style.background = '#10b981';
+                contactForm.reset();
+
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+                }, 3500);
+            })
+            .catch((err) => {
+                console.error('EmailJS error:', err);
+                submitBtn.textContent = '✕ Failed — try again';
+                submitBtn.style.background = '#ef4444';
+                submitBtn.disabled = false;
+
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.background = '';
+                }, 3500);
+            });
     });
 }
 
