@@ -155,30 +155,34 @@ if (document.querySelector('.tagcloud')) {
 // Set current year in footer
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Simple form submission handler
+// Contact form — opens mailto: with pre-filled fields
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
+
+        const name    = document.getElementById('name').value.trim();
+        const email   = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+
+        const subject = encodeURIComponent(`Portfolio Enquiry from ${name}`);
+        const body    = encodeURIComponent(
+            `Hi Klemens,\n\n${message}\n\n---\nFrom: ${name}\nReply to: ${email}`
+        );
+
+        window.location.href = `mailto:klemenschung@gmail.com?subject=${subject}&body=${body}`;
+
+        // Visual feedback after opening mail client
         const submitBtn = contactForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
-        
-        submitBtn.textContent = 'Sending...';
+        submitBtn.textContent = 'Opening email client…';
         submitBtn.disabled = true;
 
-        // Simulate network request
         setTimeout(() => {
-            submitBtn.textContent = 'Message Sent!';
-            submitBtn.style.background = '#10b981'; // Green success color
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
             contactForm.reset();
-
-            // Reset button after 3 seconds
-            setTimeout(() => {
-                submitBtn.textContent = originalText;
-                submitBtn.style.background = '';
-                submitBtn.disabled = false;
-            }, 3000);
-        }, 1500);
+        }, 3000);
     });
 }
 
