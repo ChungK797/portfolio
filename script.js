@@ -20,22 +20,41 @@ window.scrollTo(0, 0);
 window.addEventListener('load', () => {
     window.scrollTo(0, 0);
     
-    // Init Dotted Surface
-    const cleanupSurface = initDottedSurface();
-    
-    // Splash Screen Logic
     const splashScreen = document.getElementById('splash-screen');
     if (splashScreen) {
-        splashScreen.addEventListener('click', () => {
-            splashScreen.classList.add('slide-up');
+        const navEntries = performance.getEntriesByType("navigation");
+        const navType = navEntries.length > 0 ? navEntries[0].type : '';
+        
+        // Skip splash screen if navigating back, or if returning from another page in the same session
+        let skipSplash = false;
+        
+        if (navType === 'back_forward') {
+            skipSplash = true;
+        } else if (navType === 'navigate' && sessionStorage.getItem('splash_dismissed') === 'true') {
+            skipSplash = true;
+        }
+        
+        // If it's a full refresh (navType === 'reload'), skipSplash remains false
+        
+        if (skipSplash) {
+            splashScreen.style.display = 'none';
             document.body.classList.remove('no-scroll');
+        } else {
+            // Init Dotted Surface only if showing splash
+            const cleanupSurface = initDottedSurface();
             
-            // Remove from DOM after animation completes
-            setTimeout(() => {
-                splashScreen.style.display = 'none';
-                if (cleanupSurface) cleanupSurface();
-            }, 800);
-        });
+            splashScreen.addEventListener('click', () => {
+                splashScreen.classList.add('slide-up');
+                document.body.classList.remove('no-scroll');
+                sessionStorage.setItem('splash_dismissed', 'true');
+                
+                // Remove from DOM after animation completes
+                setTimeout(() => {
+                    splashScreen.style.display = 'none';
+                    if (cleanupSurface) cleanupSurface();
+                }, 800);
+            });
+        }
     }
 });
 
