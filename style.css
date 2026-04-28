@@ -60,12 +60,15 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 body {
@@ -74,6 +77,8 @@ body {
     color: var(--text-primary);
     line-height: 1.5;
     overflow-x: hidden;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
 }
 
 body.no-scroll {
@@ -210,6 +215,8 @@ strong {
     transition: background var(--transition-speed), color var(--transition-speed);
     cursor: pointer;
     border: 1px solid var(--primary);
+    min-height: 44px;
+    touch-action: manipulation;
 }
 
 .primary-btn {
@@ -280,7 +287,7 @@ section {
 /* About Section */
 .about-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
     gap: 2rem;
     max-width: 1000px;
     margin: 0 auto 2rem auto;
@@ -354,7 +361,7 @@ section {
 /* Projects Section */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr));
     gap: 3rem;
 }
 
@@ -445,7 +452,10 @@ section {
     background: var(--surface-color);
     color: var(--text-primary);
     font-family: var(--font-family);
+    font-size: 16px; /* Prevents iOS auto-zoom on focus */
     transition: border-color var(--transition-speed);
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .form-group input:focus,
@@ -510,6 +520,12 @@ footer {
     border: none;
     cursor: pointer;
     z-index: 1001; /* Above the overlay */
+    padding: 10px;
+    min-width: 44px;
+    min-height: 44px;
+    justify-content: center;
+    align-items: center;
+    touch-action: manipulation;
 }
 
 .hamburger .bar {
@@ -580,6 +596,8 @@ footer {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
+    bottom: calc(2rem + env(safe-area-inset-bottom));
+    right: calc(2rem + env(safe-area-inset-right));
     z-index: 1000;
     background-color: color-mix(in srgb, var(--background) 80%, transparent);
     backdrop-filter: blur(12px);
@@ -595,6 +613,7 @@ footer {
     color: var(--text-primary);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: all var(--transition-speed);
+    touch-action: manipulation;
 }
 
 .dark .theme-btn {
@@ -638,14 +657,34 @@ footer {
     }
 }
 
-/* Responsive */
+/* Responsive — Tablets & Small Laptops */
+@media (max-width: 1024px) {
+    section {
+        padding: 6rem 4% 3rem;
+    }
+
+    .hero-section {
+        gap: 1.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+    }
+}
+
+/* Responsive — Mobile */
 @media (max-width: 768px) {
     main {
         padding: 0 1.25rem;
     }
 
+    section {
+        padding: 5rem 5% 3rem;
+    }
+
     .hero-section {
-        padding-top: 8rem;
+        padding-top: 7rem;
+        min-height: auto;
         flex-direction: column;
         justify-content: center;
         text-align: center;
@@ -660,7 +699,7 @@ footer {
         width: 100%;
         justify-content: center;
         margin-top: 0;
-        margin-bottom: 3rem;
+        margin-bottom: 2rem;
     }
 
     .hero-graphic img {
@@ -672,16 +711,181 @@ footer {
         font-size: 2.5rem;
     }
 
+    .hero-subtitle {
+        font-size: 1.15rem;
+        margin-bottom: 2rem;
+    }
+
     .section-title {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .about-card {
+        padding: 2rem;
+    }
+
+    .about-card p {
+        font-size: 1rem;
+    }
+
+    .about-content {
+        padding: 2rem;
+    }
+
+    .about-content p {
+        font-size: 1rem;
     }
 
     .projects-grid {
         grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .project-image {
+        height: 220px;
+    }
+
+    .project-info {
+        padding: 1.75rem;
+    }
+
+    .contact-desc {
+        font-size: 1.05rem;
+        margin-bottom: 2rem;
+    }
+
+    .btn {
+        padding: 0.85rem 2rem;
+        font-size: 0.95rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    .contact-form .btn {
+        width: 100%;
+    }
+
+    .globe-container {
+        padding: 1rem;
+        margin-top: 0;
+    }
+
+    .tagcloud {
+        font-size: 0.9rem;
     }
 
     .theme-btn {
-        bottom: 1.5rem;
-        right: 1.5rem;
+        bottom: calc(1.25rem + env(safe-area-inset-bottom));
+        right: calc(1.25rem + env(safe-area-inset-right));
+        width: 46px;
+        height: 46px;
+    }
+
+    /* Navbar safe areas */
+    .navbar {
+        padding: 1rem 5%;
+        padding-top: calc(1rem + env(safe-area-inset-top));
+    }
+
+    footer {
+        padding: 2rem 1.25rem;
+        padding-bottom: calc(2rem + env(safe-area-inset-bottom));
+        margin-top: 3rem;
+    }
+
+    /* Project detail pages */
+    .project-detail-section {
+        padding-top: 7rem;
+    }
+
+    .project-meta {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: center;
+    }
+}
+
+/* Responsive — Small phones (iPhone SE, Galaxy S series, etc.) */
+@media (max-width: 480px) {
+    .hero-section {
+        padding-top: 6rem;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.65rem;
+    }
+
+    .about-card {
+        padding: 1.5rem;
+    }
+
+    .about-content {
+        padding: 1.5rem;
+    }
+
+    .project-image {
+        height: 180px;
+    }
+
+    .project-info {
+        padding: 1.25rem;
+    }
+
+    .project-info h3 {
+        font-size: 1.25rem;
+    }
+
+    .splash-title {
+        font-size: clamp(2rem, 10vw, 4rem);
+    }
+
+    .nav-links a {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        gap: 2.5rem;
+    }
+
+    .form-group label {
+        font-size: 0.9rem;
+    }
+
+    .contact-desc {
+        font-size: 1rem;
+    }
+
+    footer {
+        font-size: 0.8rem;
+    }
+}
+
+/* Landscape mobile — prevent overly tall hero */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero-section {
+        min-height: auto;
+        padding-top: 5rem;
+        padding-bottom: 2rem;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        margin-bottom: 1.5rem;
+    }
+
+    .globe-container {
+        display: none;
     }
 }
