@@ -132,22 +132,12 @@ body.no-scroll {
 }
 
 @keyframes blink {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.4;
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
 }
 
 /* Typography */
-h1,
-h2,
-h3,
-h4 {
+h1, h2, h3, h4 {
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.04em;
@@ -159,8 +149,7 @@ p {
     font-weight: 400;
 }
 
-b,
-strong {
+b, strong {
     color: var(--primary);
     font-weight: 600;
 }
@@ -519,7 +508,7 @@ footer {
     background: transparent;
     border: none;
     cursor: pointer;
-    z-index: 1001; /* Above the overlay */
+    z-index: 1001;
     padding: 10px;
     min-width: 44px;
     min-height: 44px;
@@ -536,7 +525,6 @@ footer {
     transition: all var(--transition-speed) ease-in-out;
 }
 
-/* Hamburger Animation */
 .hamburger.active .bar:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
 }
@@ -688,23 +676,40 @@ footer {
         flex-direction: column;
         justify-content: center;
         text-align: center;
+        position: relative;
+        overflow: visible;
     }
 
     .hero-content {
         align-items: center;
         text-align: center;
+        position: relative;
+        z-index: 1;
     }
 
+    /* Globe becomes a subtle background behind the hero text */
     .hero-graphic {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         width: 100%;
-        justify-content: center;
-        margin-top: 0;
-        margin-bottom: 2rem;
+        margin: 0;
+        opacity: 0.10;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .hero-graphic .globe-container {
+        border: none;
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
     }
 
     .hero-graphic img {
-        width: 250px;
-        height: 250px;
+        display: none;
     }
 
     .hero-title {
@@ -767,12 +772,14 @@ footer {
     }
 
     .globe-container {
-        padding: 1rem;
+        padding: 0;
         margin-top: 0;
+        border: none;
+        background: transparent;
     }
 
     .tagcloud {
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
 
     .theme-btn {
@@ -782,7 +789,6 @@ footer {
         height: 46px;
     }
 
-    /* Navbar safe areas */
     .navbar {
         padding: 1rem 5%;
         padding-top: calc(1rem + env(safe-area-inset-top));
@@ -794,7 +800,6 @@ footer {
         margin-top: 3rem;
     }
 
-    /* Project detail pages */
     .project-detail-section {
         padding-top: 7rem;
     }
