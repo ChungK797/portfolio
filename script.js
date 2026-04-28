@@ -164,11 +164,12 @@ const myTags = [
 
 if (document.querySelector('.tagcloud')) {
     const screenW = window.innerWidth;
-    const tagRadius = screenW < 480 ? 100 : screenW < 768 ? 180 : 400;
+    const isMobileView = screenW < 768;
+    const tagRadius = screenW < 480 ? 150 : isMobileView ? 220 : 400;
     var tagCloud = TagCloud('.tagcloud', myTags, {
       radius: tagRadius,
-      maxSpeed: 'normal',
-      initSpeed: 'normal',
+      maxSpeed: isMobileView ? 'slow' : 'normal',
+      initSpeed: isMobileView ? 'slow' : 'normal',
       direction: 135,
       keep: true
     });
@@ -178,11 +179,8 @@ if (document.querySelector('.tagcloud')) {
 document.getElementById('year').textContent = new Date().getFullYear();
 
 // ── Google Apps Script config ─────────────────────────────────────────────────────────────────────
-// Paste your deployed Apps Script URL below (see setup instructions).
-// Leave as-is until you have the URL — form will show a friendly error.
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyBDCkadWd8BfhevHnMysgIFcZ5fo1YoVaSssXWOMRiVvmVoJUw9XdzzL7GDHFxmQVW/exec';
 
-// Contact form — sends directly via Gmail (Google Apps Script, no mail app)
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
@@ -201,7 +199,6 @@ if (contactForm) {
             return;
         }
 
-        // Loading state
         submitBtn.textContent = 'Sending…';
         submitBtn.disabled = true;
 
@@ -213,7 +210,6 @@ if (contactForm) {
 
         fetch(APPS_SCRIPT_URL, {
             method:  'POST',
-            // Apps Script requires text/plain to avoid preflight CORS issues
             headers: { 'Content-Type': 'text/plain' },
             body:    JSON.stringify(payload),
         })
@@ -257,7 +253,6 @@ if (hamburger && navMenu) {
         navMenu.classList.toggle('active');
     });
 
-    // Close menu when a link is clicked
     document.querySelectorAll('.nav-links a').forEach(n => n.addEventListener('click', () => {
         hamburger.classList.remove('active');
         navMenu.classList.remove('active');
@@ -268,7 +263,6 @@ if (hamburger && navMenu) {
 const themeToggle = document.getElementById('theme-toggle');
 
 if (themeToggle) {
-    // Set initial icon based on current theme before Lucide initializes
     if (document.documentElement.classList.contains('dark')) {
         themeToggle.innerHTML = '<i data-lucide="sun"></i>';
     } else {
@@ -286,14 +280,12 @@ if (themeToggle) {
             themeToggle.innerHTML = '<i data-lucide="moon"></i>';
         }
         
-        // Re-render the new icon
         if (typeof lucide !== 'undefined') {
             lucide.createIcons();
         }
     });
 }
 
-// Initialize Lucide Icons
 if (typeof lucide !== 'undefined') {
     lucide.createIcons();
 }
