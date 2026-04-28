@@ -373,6 +373,66 @@ section {
     background-size: cover;
     background-position: center;
     border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.4s ease, background-image 0.4s ease;
+}
+
+/* Nickel Consulting — Light: soft navy-slate | Dark: deep navy-indigo */
+.project-image--nickel {
+    background-color: #e8edf5;
+    background-image: linear-gradient(135deg, #e8edf5 0%, #d1d9e6 40%, #b8c6db 100%);
+}
+
+.dark .project-image--nickel {
+    background-color: #1a1a2e;
+    background-image: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+}
+
+/* AI Portfolio — Light: warm cream-amber | Dark: deep charcoal-amber */
+.project-image--portfolio {
+    background-color: #fef9ef;
+    background-image: linear-gradient(135deg, #fef9ef 0%, #fdf0d5 40%, #f5deb3 100%);
+}
+
+.dark .project-image--portfolio {
+    background-color: #0d0d0d;
+    background-image: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 40%, #2d1b00 100%);
+}
+
+/* Project card inner content */
+.project-image__content {
+    text-align: center;
+    padding: 2rem;
+}
+
+.project-image__icon {
+    stroke: var(--primary);
+    margin-bottom: 1rem;
+    transition: stroke 0.3s ease;
+}
+
+.project-image__title {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin: 0;
+    letter-spacing: 0.05em;
+    transition: color 0.3s ease;
+}
+
+.project-image__subtitle {
+    color: var(--muted-foreground);
+    font-size: 0.85rem;
+    margin: 0.5rem 0 0;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: color 0.3s ease;
+}
+
+.dark .project-image__subtitle {
+    color: #a3a3a3;
 }
 
 .project-info {
