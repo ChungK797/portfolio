@@ -671,10 +671,12 @@ footer {
     }
 
     .hero-section {
-        padding-top: 7rem;
-        min-height: auto;
+        padding-top: 0;
+        padding-bottom: 0;
+        min-height: 100vh;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
         text-align: center;
         position: relative;
         overflow: visible;
@@ -813,9 +815,6 @@ footer {
 
 /* Responsive — Small phones (iPhone SE, Galaxy S series, etc.) */
 @media (max-width: 480px) {
-    .hero-section {
-        padding-top: 6rem;
-    }
 
     .hero-title {
         font-size: 2rem;
