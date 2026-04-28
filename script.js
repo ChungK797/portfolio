@@ -63,9 +63,10 @@ function initDottedSurface() {
     const container = document.getElementById('dotted-surface-container');
     if (!container || typeof THREE === 'undefined') return null;
 
-    const SEPARATION = 150;
-    const AMOUNTX = 40;
-    const AMOUNTY = 60;
+    const isMobile = window.innerWidth < 768;
+    const SEPARATION = isMobile ? 120 : 150;
+    const AMOUNTX = isMobile ? 20 : 40;
+    const AMOUNTY = isMobile ? 30 : 60;
 
     const scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0xffffff, 2000, 10000);
@@ -73,8 +74,8 @@ function initDottedSurface() {
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.set(0, 355, 1220);
 
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setPixelRatio(window.devicePixelRatio);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: !isMobile });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(scene.fog.color, 0);
 
@@ -162,8 +163,10 @@ const myTags = [
 ];
 
 if (document.querySelector('.tagcloud')) {
+    const screenW = window.innerWidth;
+    const tagRadius = screenW < 480 ? 100 : screenW < 768 ? 180 : 400;
     var tagCloud = TagCloud('.tagcloud', myTags, {
-      radius: window.innerWidth < 768 ? 130 : 400,
+      radius: tagRadius,
       maxSpeed: 'normal',
       initSpeed: 'normal',
       direction: 135,
@@ -174,7 +177,7 @@ if (document.querySelector('.tagcloud')) {
 // Set current year in footer
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// ── Google Apps Script config ───────────────────────────────────────────────
+// ── Google Apps Script config ─────────────────────────────────────────────────────────────────────
 // Paste your deployed Apps Script URL below (see setup instructions).
 // Leave as-is until you have the URL — form will show a friendly error.
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyBDCkadWd8BfhevHnMysgIFcZ5fo1YoVaSssXWOMRiVvmVoJUw9XdzzL7GDHFxmQVW/exec';
